@@ -55,17 +55,18 @@ All routes (except /register/ and /login/) are protected and require a valid JWT
 ---
 
 📑 API Endpoints Summary
-| Method | Endpoint                    | Description                                    |
-| ------ | --------------------------- | ---------------------------------------------- |
-| POST   | `/register/`                | Register a new user                            |
-| POST   | `/login/`                   | Login and get JWT token                        |
-| GET    | `/habits/`                  | Get list of your habits                        | 
-| POST   | `/habits/`                  | Create a new habit                             |
-| PUT    | `/habits/:habitId/`         | Update habit details                           |
-| DELETE | `/habits/:habitId/`         | Delete a habit                                 |
-| POST   | `/habits/:habitId/logs/`    | Mark habit as done for the current day         |
-| GET    | `/habits/:habitId/logs/`    | Get log history for a habit                    |
-| GET    | `/analytics/streaks/`       | Get current streaks for all habits             |
-| GET    | `/analytics/completion/`    | Get completion percentage for each habit       |
+| Method | Endpoint                 | Description                                |
+| ------ | ------------------------ | ------------------------------------------ |
+| POST   | `/register/`             | Register a new user                        |
+| POST   | `/login/`                | Login and get JWT token                    |
+| GET    | `/habits/`               | Get list of habits for the logged-in user  |
+| POST   | `/habits/`               | Create a new habit                         |
+| PUT    | `/habits/:habitId/`      | Update a habit by ID                       |
+| DELETE | `/habits/:habitId/`      | Delete a habit by ID                       |
+| POST   | `/habits/:habitId/logs/` | Mark a habit as done for the current day   |
+| GET    | `/habits/:habitId/logs/` | Get log history for a specific habit       |
+| GET    | `/analytics/streaks/`    | Get current and longest streaks for habits |
+| GET    | `/analytics/completion/` | Get completion percentage for each habit   |
+
 
 
