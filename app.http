@@ -1,0 +1,83 @@
+### API 1: Register User
+POST http://localhost:3000/register/
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "password": "password123",
+  "name": "John Doe",
+  "gender": "male"
+}
+
+---
+
+### API 2: Login User
+POST http://localhost:3000/login/
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "password": "password123"
+}
+
+# ⬆️ Copy the returned jwtToken and paste it below
+
+---
+
+### API 3: Get List of Habits
+GET http://localhost:3000/habits/
+Authorization: Bearer <JWT_TOKEN>
+
+---
+
+### API 4: Create a Habit
+POST http://localhost:3000/habits/
+Authorization: Bearer <JWT_TOKEN>
+Content-Type: application/json
+
+{
+  "habitName": "Exercise",
+  "description": "Morning workout for 30 mins"
+}
+
+---
+
+### API 5: Update a Habit
+PUT http://localhost:3000/habits/1/
+Authorization: Bearer <JWT_TOKEN>
+Content-Type: application/json
+
+{
+  "habitName": "Exercise Updated",
+  "description": "Evening workout for 45 mins"
+}
+
+---
+
+### API 6: Delete a Habit
+DELETE http://localhost:3000/habits/1/
+Authorization: Bearer <JWT_TOKEN>
+
+---
+
+### API 7: Mark Habit as Done
+POST http://localhost:3000/habits/1/logs/
+Authorization: Bearer <JWT_TOKEN>
+
+---
+
+### API 8: Get Habit Logs
+GET http://localhost:3000/habits/1/logs/
+Authorization: Bearer <JWT_TOKEN>
+
+---
+
+### API 9: Get Habit Streaks
+GET http://localhost:3000/analytics/streaks/
+Authorization: Bearer <JWT_TOKEN>
+
+---
+
+### API 10: Get Habit Completion Percentages
+GET http://localhost:3000/analytics/completion/
+Authorization: Bearer <JWT_TOKEN>
