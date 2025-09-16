@@ -74,7 +74,9 @@ Scenarios:
 - Missing/invalid token → 401: Invalid JWT Token
 - Valid token → proceeds to route handler
 
-**📋 Habit APIs**  (/habits/ – GET)
+**📋 Habit APIs**  
+
+/habits/ – GET
 Returns all habits created by the logged-in user.
 
 **Sample Response**
@@ -82,6 +84,73 @@ Returns all habits created by the logged-in user.
   { "habitName": "Morning Walk", "description": "Walk 5,000 steps daily" },
   { "habitName": "Meditation", "description": "10 mins of mindfulness" }
 ]
+
+/habits/ – POST
+Creates a new habit.
+
+**Sample Request**
+{ "habitName": "Read Books", "description": "Read 20 pages daily" }
+
+**Response**
+Habit Created Successfully
+
+/habits/:habitId/ – PUT
+Updates the habit’s name or description.
+
+Unauthorized update → 401: Invalid Request
+Success → 200: Habit Updated Successfully
+
+/habits/:habitId/ – DELETE
+Deletes a habit only if it belongs to the user.
+
+Unauthorized delete → 401: Invalid Request
+Success → 200: Habit Deleted Successfully
+
+
+**📝 Log APIs**
+
+/habits/:habitId/logs/ – POST
+Marks a habit as done for the current date.
+
+**Sample Response**
+Habit marked as done
+
+/habits/:habitId/logs/ – GET
+Returns the daily logs for a specific habit.
+
+**Sample Response**
+[
+  { "date": "2025-09-14", "status": "done" },
+  { "date": "2025-09-15", "status": "missed" }
+]
+
+**📊 Analytics APIs**
+
+/analytics/streaks/ – GET
+Returns current and longest streaks for each habit.
+
+**Sample Response**
+[
+  { "habitName": "Meditation", "currentStreak": 5, "longestStreak": 12 },
+  { "habitName": "Workout", "currentStreak": 2, "longestStreak": 8 }
+]
+
+/analytics/completion/ – GET
+Returns completion percentage for each habit (based on total days tracked).
+
+**Sample Response**
+[
+  { "habitName": "Meditation", "completion": "85%" },
+  { "habitName": "Workout", "completion": "60%" }
+]
+
+
+🔚 Summary
+
+- Exports Express app via CommonJS (module.exports = app)
+- Uses relational SQL logic to handle habits, logs, and streaks
+- JWT-based authentication and authorization
+- Ideal for showcasing REST API design, authentication, and CRUD operations using Express and SQLite
 
   
 
