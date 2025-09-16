@@ -78,15 +78,21 @@ Scenarios:
 - Missing/invalid token → 401: Invalid JWT Token
 - Valid token → proceeds to route handler
 
-**📋 Habit APIs**
-/habits/ – GET
+**📋 Habit APIs**   (/habits/ – GET)
 - Returns all habits created by the logged-in user.
 
 **Sample Response**
 [
-  { "habitName": "Morning Walk", "description": "Walk 5,000 steps daily" },
-  { "habitName": "Meditation", "description": "10 mins of mindfulness" }
+  {
+    "habitName": "Morning Walk",
+    "description": "Walk 5,000 steps daily"
+  },
+  {
+    "habitName": "Meditation",
+    "description": "10 mins of mindfulness"
+  }
 ]
+
 
 /habits/ – POST
 - Creates a new habit.
