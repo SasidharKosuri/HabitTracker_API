@@ -3,3 +3,14 @@
 A secure, feature-rich, and scalable backend application for tracking daily habits, developed using Node.js, Express.js, and SQLite. This project is designed to simulate the core functionality of a real-world habit tracker from a backend perspective. It includes robust user authentication using JWT tokens, secure password handling with bcrypt, and a relational database structure that manages users, habits, and daily logs efficiently.
 
 The backend supports essential habit tracking operations such as user registration and login, creating habits, marking daily completion, tracking streaks, and viewing habit analytics. Additionally, it provides authenticated users with features like accessing their daily habit list, viewing progress, and safely performing create, read, update, and delete operations on habits. All functionalities are exposed via a well-structured set of RESTful APIs, designed with a focus on real-world authentication flow, authorization, and data validation.
+
+---
+
+## 🚀 Features
+- ✅ User Registration and Login with JWT Authentication
+- ✅ Create, read, update, and delete habits
+- ✅ Mark habits as done each day
+- ✅ View daily and weekly progress
+- ✅ Track current and longest streaks for each habit
+- ✅ Get analytics: completion percentage per habit
+- ✅ Secure access with authentication middleware
