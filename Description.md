@@ -41,7 +41,7 @@
 ## ✅ Core Functionalities
 
 **🔐 User Registration** (/register/ – POST) 
-Handles new user registration with password validation and username checks.
+- Handles new user registration with password validation and username checks.
 
 **Sample Request:**
 {
@@ -57,7 +57,7 @@ Scenarios:
 - Success → 200: User created successfully
 
 **🔐 User Login**   (/login/ - POST)
-Authenticates existing users and returns a JWT token on success.  
+- Authenticates existing users and returns a JWT token on success.  
 
 **Sample Request:**  
 {  
