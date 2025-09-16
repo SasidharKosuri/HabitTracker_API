@@ -41,7 +41,7 @@
 ## ✅ Core Functionalities
 
 **🔐 User Registration** (/register/ – POST) 
---> Handles new user registration with password validation and username checks.
+- Handles new user registration with password validation and username checks.
 
 **Sample Request:**
 {
@@ -71,16 +71,14 @@ Scenarios:
 - Success → 200: { "jwtToken": "<token>" }
 
 **🔒 Authentication Middleware**
-Middleware validates JWT token passed in the Authorization header.
+- Middleware validates JWT token passed in the Authorization header.
 
 Scenarios:
 - Missing/invalid token → 401: Invalid JWT Token
 - Valid token → proceeds to route handler
 
-**📋 Habit APIs**  
-
-/habits/ – GET
-Returns all habits created by the logged-in user.
+**📋 Habit APIs**    (/habits/ – GET)
+- Returns all habits created by the logged-in user.
 
 **Sample Response**
 [
@@ -89,7 +87,7 @@ Returns all habits created by the logged-in user.
 ]
 
 /habits/ – POST
-Creates a new habit.
+- Creates a new habit.
 
 **Sample Request**
 { "habitName": "Read Books", "description": "Read 20 pages daily" }
@@ -98,7 +96,7 @@ Creates a new habit.
 Habit Created Successfully
 
 /habits/:habitId/ – PUT
-Updates the habit’s name or description.
+- Updates the habit’s name or description.
 
 Unauthorized update → 401: Invalid Request
 Success → 200: Habit Updated Successfully
