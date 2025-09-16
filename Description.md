@@ -49,7 +49,8 @@ Handles new user registration with password validation and username checks.
   "password": "richard_567",
   "name": "Adam Richard",
   "gender": "male"
-}
+} 
+
 Scenarios:
 - Username already exists → 400: User already exists
 - Password < 6 characters → 400: Password is too short
