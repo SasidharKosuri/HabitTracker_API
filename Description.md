@@ -56,13 +56,15 @@ Scenarios:
 - Password < 6 characters → 400: Password is too short
 - Success → 200: User created successfully
 
-**🔐 User Login**   (/login/ - POST)  
+**🔐 User Login**   (/login/ - POST)
 Authenticates existing users and returns a JWT token on success.  
+
 **Sample Request:**  
 {  
 "username": "JoeBiden",  
 "password": "biden@123"  
 }
+
 Scenarios:
 - Invalid user → 400: Invalid user
 - Incorrect password → 400: Invalid password
