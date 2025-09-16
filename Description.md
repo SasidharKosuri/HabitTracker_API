@@ -43,7 +43,7 @@
 **🔐 User Registration** (/register/ – POST) 
 Handles new user registration with password validation and username checks.
 
-**Sample Request:**
+**Sample Request:**  
 {  
   "username": "adam_richard",  
   "password": "richard_567",  
@@ -97,23 +97,21 @@ Scenarios:
 /habits/ – POST
 - Creates a new habit.
 
-**Sample Request**
+**Sample Request**  
 { "habitName": "Read Books", "description": "Read 20 pages daily" }
 
-**Response**
+**Response**  
 Habit Created Successfully
 
-/habits/:habitId/ – PUT
+/habits/:habitId/ – PUT  
 - Updates the habit’s name or description.
+- Unauthorized update → 401: Invalid Request
+- Success → 200: Habit Updated Successfully
 
-Unauthorized update → 401: Invalid Request
-Success → 200: Habit Updated Successfully
-
-/habits/:habitId/ – DELETE
-Deletes a habit only if it belongs to the user.
-
-Unauthorized delete → 401: Invalid Request
-Success → 200: Habit Deleted Successfully
+/habits/:habitId/ – DELETE  
+- Deletes a habit only if it belongs to the user.
+- Unauthorized delete → 401: Invalid Request
+- Success → 200: Habit Deleted Successfully
 
 
 **📝 Log APIs**
@@ -121,13 +119,13 @@ Success → 200: Habit Deleted Successfully
 /habits/:habitId/logs/ – POST
 Marks a habit as done for the current date.
 
-**Sample Response**
+**Sample Response**  
 Habit marked as done
 
-/habits/:habitId/logs/ – GET
+/habits/:habitId/logs/ – GET  
 Returns the daily logs for a specific habit.
 
-**Sample Response**
+**Sample Response**  
 [
   { "date": "2025-09-14", "status": "done" },
   { "date": "2025-09-15", "status": "missed" }
@@ -135,19 +133,19 @@ Returns the daily logs for a specific habit.
 
 **📊 Analytics APIs**
 
-/analytics/streaks/ – GET
+/analytics/streaks/ – GET 
 Returns current and longest streaks for each habit.
 
-**Sample Response**
+**Sample Response**  
 [
   { "habitName": "Meditation", "currentStreak": 5, "longestStreak": 12 },
   { "habitName": "Workout", "currentStreak": 2, "longestStreak": 8 }
 ]
 
-/analytics/completion/ – GET
+/analytics/completion/ – GET  
 Returns completion percentage for each habit (based on total days tracked).
 
-**Sample Response**
+**Sample Response**  
 [
   { "habitName": "Meditation", "completion": "85%" },
   { "habitName": "Workout", "completion": "60%" }
