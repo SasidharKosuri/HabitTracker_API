@@ -38,19 +38,21 @@ The backend supports essential habit tracking operations such as user registrati
    node app.js
 3. **Server will run at http://localhost:3000/**
 
-   ---
+---
 
    ## 🔐 Authentication
 All routes (except /register/ and /login/) are protected and require a valid JWT token in the Authorization header: 
 - Authorization: Bearer your-jwt-token
 
-  ---
+---
 
   ## 📂 Folder Structure
  - app.js              -> Main Express server
  - habitTracker.db     -> SQLite database file
  - package.json
  - README.md
+
+---
 
 📑 API Endpoints Summary
 | Method | Endpoint                    | Description                                    |
