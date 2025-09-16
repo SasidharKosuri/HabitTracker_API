@@ -19,4 +19,14 @@
 | user\_id    | INTEGER  |
 | created\_at | DATETIME |
 
+### 3. log table
+| Column    | Type    |                                  |
+| --------- | ------- | -------------------------------- |
+| log\_id   | INTEGER |                                  |
+| habit\_id | INTEGER |                                  |
+| user\_id  | INTEGER |                                  |
+| date      | DATE    |                                  |
+| status    | TEXT    | <!-- e.g. 'done' or 'missed' --> |
+
+
 
