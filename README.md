@@ -18,9 +18,9 @@ The backend supports essential habit tracking operations such as user registrati
 ---
 
 ## 🛠️ Tech Stack
--- **Backend**: Node.js, Express.js
--- **Database**: SQLite
--- **Security**: bcrypt for password hashing, JWT for session management
+- **Backend:**: Node.js, Express.js
+- **Database:** SQLite
+- **Security:** bcrypt for password hashing, JWT for session management
 
 ---
 
