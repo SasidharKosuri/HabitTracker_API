@@ -1,4 +1,4 @@
-📅 Habit Tracker Backend
+# 📅 Habit Tracker Backend
 
 A secure, feature-rich, and scalable backend application for tracking daily habits, developed using Node.js, Express.js, and SQLite. This project is designed to simulate the core functionality of a real-world habit tracker from a backend perspective. It includes robust user authentication using JWT tokens, secure password handling with bcrypt, and a relational database structure that manages users, habits, and daily logs efficiently.
 
