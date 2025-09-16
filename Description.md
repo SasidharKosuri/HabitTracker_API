@@ -56,7 +56,7 @@ Scenarios:
 - Password < 6 characters → 400: Password is too short
 - Success → 200: User created successfully
 
-  **🔐 User Login**   (/login/ - POST)  
+**🔐 User Login**   (/login/ - POST)  
 Authenticates existing users and returns a JWT token on success.  
 **Sample Request:**  
 {  
@@ -68,7 +68,7 @@ Scenarios:
 - Incorrect password → 400: Invalid password
 - Success → 200: { "jwtToken": "<token>" }
 
-  **🔒 Authentication Middleware**
+**🔒 Authentication Middleware**
 Middleware validates JWT token passed in the Authorization header.
 
 Scenarios:
@@ -146,7 +146,7 @@ Returns completion percentage for each habit (based on total days tracked).
 ]
 
 
-🔚 Summary
+**🔚 Summary**
 
 - Exports Express app via CommonJS (module.exports = app)
 - Uses relational SQL logic to handle habits, logs, and streaks
