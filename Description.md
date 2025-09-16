@@ -41,15 +41,15 @@
 ## ✅ Core Functionalities
 
 **🔐 User Registration** (/register/ – POST) 
-- Handles new user registration with password validation and username checks.
+Handles new user registration with password validation and username checks.
 
 **Sample Request:**
-{
-  "username": "adam_richard",
-  "password": "richard_567",
-  "name": "Adam Richard",
-  "gender": "male"
-} 
+{  
+  "username": "adam_richard",  
+  "password": "richard_567",  
+  "name": "Adam Richard",  
+  "gender": "male"  
+  }
 
 Scenarios:
 - Username already exists → 400: User already exists
@@ -57,7 +57,8 @@ Scenarios:
 - Success → 200: User created successfully
 
 **🔐 User Login**   (/login/ - POST)
-- Authenticates existing users and returns a JWT token on success.  
+Authenticates existing users and returns a JWT token on success.  
+
 
 **Sample Request:**  
 {  
@@ -77,7 +78,8 @@ Scenarios:
 - Missing/invalid token → 401: Invalid JWT Token
 - Valid token → proceeds to route handler
 
-**📋 Habit APIs**    (/habits/ – GET)
+**📋 Habit APIs**
+/habits/ – GET
 - Returns all habits created by the logged-in user.
 
 **Sample Response**
