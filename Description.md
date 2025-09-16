@@ -118,7 +118,7 @@ Habit Created Successfully
 
 **📝 Log APIs**
 
-/habits/:habitId/logs/ – POST
+/habits/:habitId/logs/ – POST  
 Marks a habit as done for the current date.
 
 **Sample Response**  
@@ -135,7 +135,7 @@ Returns the daily logs for a specific habit.
 
 **📊 Analytics APIs**
 
-/analytics/streaks/ – GET 
+/analytics/streaks/ – GET  
 Returns current and longest streaks for each habit.
 
 **Sample Response**  
