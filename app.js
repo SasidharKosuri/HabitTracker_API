@@ -104,12 +104,12 @@ app.post("/login/", async (req, res) => {
   res.send({ jwtToken });
 });
 
-//API 3 : Get list of habits
+// API 3 : Get list of habits
 app.get("/habits/", authenticateToken, async (req, res) => {
   const { userId } = req.user;
 
   const habits = await db.all(
-    `SELECT habit_name AS habitName, description 
+    `SELECT habit_id, habit_name AS habitName, description 
      FROM habit WHERE user_id = ?`,
     [userId]
   );
@@ -117,21 +117,21 @@ app.get("/habits/", authenticateToken, async (req, res) => {
   res.send(habits);
 });
 
-//APi 4 : Create a habit 
+// API 4 : Create a habit
 app.post("/habits/", authenticateToken, async (req, res) => {
   const { userId } = req.user;
   const { habitName, description } = req.body;
 
   await db.run(
     `INSERT INTO habit (habit_name, description, user_id, created_at)
-     VALUES (?, ?, ?, datetime('now'))`,
+     VALUES (?, ?, ?, date('now'))`,
     [habitName, description, userId]
   );
 
   res.send("Habit Created Successfully");
 });
 
-//API 5 : Update a habit
+// API 5 : Update a habit
 app.put("/habits/:habitId/", authenticateToken, async (req, res) => {
   const { userId } = req.user;
   const { habitId } = req.params;
@@ -154,7 +154,7 @@ app.put("/habits/:habitId/", authenticateToken, async (req, res) => {
   res.send("Habit Updated Successfully");
 });
 
-//API 6 : Delete a habit
+// API 6 : Delete a habit
 app.delete("/habits/:habitId/", authenticateToken, async (req, res) => {
   const { userId } = req.user;
   const { habitId } = req.params;
@@ -173,13 +173,15 @@ app.delete("/habits/:habitId/", authenticateToken, async (req, res) => {
   res.send("Habit Deleted Successfully");
 });
 
-//API 7 : CREATE a log 
+// API 7 : Create a log (mark habit as done)
 app.post("/habits/:habitId/logs/", authenticateToken, async (req, res) => {
   const { userId } = req.user;
   const { habitId } = req.params;
 
+  // Default status is "missed" in DB schema
+  // Here we only update to "done"
   await db.run(
-    `INSERT INTO log (habit_id, user_id, date, status)
+    `INSERT OR REPLACE INTO log (habit_id, user_id, date, status)
      VALUES (?, ?, date('now'), 'done')`,
     [habitId, userId]
   );
@@ -187,39 +189,68 @@ app.post("/habits/:habitId/logs/", authenticateToken, async (req, res) => {
   res.send("Habit marked as done");
 });
 
-
-//API 8 : GET logs for a habit 
+// API 8 : Get logs for a habit
 app.get("/habits/:habitId/logs/", authenticateToken, async (req, res) => {
   const { userId } = req.user;
   const { habitId } = req.params;
 
   const logs = await db.all(
-    `SELECT date, status FROM log WHERE habit_id = ? AND user_id = ?`,
+    `SELECT date, status 
+     FROM log 
+     WHERE habit_id = ? AND user_id = ?
+     ORDER BY date DESC`,
     [habitId, userId]
   );
 
   res.send(logs);
 });
 
-//API 9 : GET streaks
+// API 9 : Get streaks
 app.get("/analytics/streaks/", authenticateToken, async (req, res) => {
   const { userId } = req.user;
 
-  const streaks = await db.all(
-    `SELECT h.habit_name AS habitName, 
-            s.current_streak AS currentStreak,
-            s.longest_streak AS longestStreak
-     FROM streak s 
-     JOIN habit h ON s.habit_id = h.habit_id
-     WHERE s.user_id = ?`,
+  const habits = await db.all(
+    `SELECT habit_id, habit_name FROM habit WHERE user_id = ?`,
     [userId]
   );
 
-  res.send(streaks);
+  const results = [];
+
+  for (const habit of habits) {
+    const logs = await db.all(
+      `SELECT date, status FROM log 
+       WHERE habit_id = ? AND user_id = ? 
+       ORDER BY date DESC`,
+      [habit.habit_id, userId]
+    );
+
+    let currentStreak = 0;
+    let longestStreak = 0;
+    let streak = 0;
+
+    for (const log of logs) {
+      if (log.status === "done") {
+        streak++;
+        currentStreak = Math.max(currentStreak, streak);
+      } else {
+        longestStreak = Math.max(longestStreak, streak);
+        streak = 0;
+      }
+    }
+
+    longestStreak = Math.max(longestStreak, streak);
+
+    results.push({
+      habitName: habit.habit_name,
+      currentStreak,
+      longestStreak
+    });
+  }
+
+  res.send(results);
 });
 
-
-//API 10 : GET completion
+// API 10 : Get completion percentage
 app.get("/analytics/completion/", authenticateToken, async (req, res) => {
   const { userId } = req.user;
 
@@ -241,8 +272,8 @@ app.get("/analytics/completion/", authenticateToken, async (req, res) => {
       [habit.habit_id, userId]
     );
 
-    const completion = totalLogs.count === 0 
-      ? "0%" 
+    const completion = totalLogs.count === 0
+      ? "0%"
       : Math.round((doneLogs.count / totalLogs.count) * 100) + "%";
 
     results.push({ habitName: habit.habit_name, completion });
@@ -250,4 +281,3 @@ app.get("/analytics/completion/", authenticateToken, async (req, res) => {
 
   res.send(results);
 });
-
