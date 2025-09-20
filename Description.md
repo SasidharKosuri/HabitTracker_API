@@ -1,42 +1,36 @@
 ## 🔧 Database Schema
 
-### 1. user Table
+### -- Users Table
+CREATE TABLE user (
+  user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  username TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  gender TEXT
+);
 
-| Column   | Type    |
-|----------|---------|
-| user_id  | INTEGER |
-| name     | TEXT    |
-| username | TEXT    |
-| password | TEXT    |
-| gender   | TEXT    |
+### -- Habits Table
+CREATE TABLE habit (
+  habit_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  habit_name TEXT NOT NULL,
+  description TEXT,
+  user_id INTEGER NOT NULL,
+  created_at DATE DEFAULT (date('now')),
+  FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
 
-### 2. habit table
-| Column      | Type     |
-| ----------- | -------- |
-| habit\_id   | INTEGER  |
-| habit\_name | TEXT     |
-| description | TEXT     |
-| user\_id    | INTEGER  |
-| created\_at | DATETIME |
+### -- Logs Table
+CREATE TABLE log (
+  log_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  habit_id INTEGER NOT NULL,
+  user_id INTEGER NOT NULL,
+  date DATE DEFAULT (date('now')),
+  status TEXT DEFAULT 'missed' CHECK(status IN ('done', 'missed')),
+  UNIQUE(habit_id, user_id, date),
+  FOREIGN KEY (habit_id) REFERENCES habit(habit_id),
+  FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
 
-### 3. log table
-| Column    | Type    |
-| --------- | ------- |
-| log\_id   | INTEGER |                                 
-| habit\_id | INTEGER |                                  
-| user\_id  | INTEGER |                                  
-| date      | DATE    |                                  
-| status    | TEXT    | 
-
-### 4.streak Table
-| Column          | Type     |
-| --------------- | -------- |
-| streak\_id      | INTEGER  |
-| habit\_id       | INTEGER  |
-| user\_id        | INTEGER  |
-| current\_streak | INTEGER  |
-| longest\_streak | INTEGER  |
-| updated\_at     | DATETIME |
 
 ## ✅ Core Functionalities
 
