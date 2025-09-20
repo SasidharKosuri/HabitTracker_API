@@ -216,7 +216,7 @@ app.get("/analytics/streaks/", authenticateToken, async (req, res) => {
 
   const results = [];
 
-  for (const habit of habits) {
+ for (const habit of habits) {
     const logs = await db.all(
       `SELECT date, status FROM log 
        WHERE habit_id = ? AND user_id = ? 
@@ -225,22 +225,31 @@ app.get("/analytics/streaks/", authenticateToken, async (req, res) => {
     );
 
     let longestStreak = 0;
-    let streak = 0;
+    let currentStreak = 0;
+    let tempStreak = 0; // counts streak while iterating
 
     for (const log of logs) {
       if (log.status === "done") {
-        streak++;
-        longestStreak = Math.max(currentStreak, streak);
+        tempStreak++;
+        longestStreak = Math.max(longestStreak, tempStreak);
       } else {
-        streak = 0;
+        tempStreak = 0;
       }
     }
 
-    longestStreak = Math.max(longestStreak, streak);
+    // Calculate current ongoing streak from the latest logs
+    currentStreak = 0;
+    for (let i = logs.length - 1; i >= 0; i--) {
+      if (logs[i].status === "done") {
+        currentStreak++;
+      } else {
+        break;
+      }
+    }
 
     results.push({
       habitName: habit.habit_name,
-      streak,
+      currentStreak,
       longestStreak
     });
   }
