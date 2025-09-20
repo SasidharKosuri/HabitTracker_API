@@ -220,20 +220,18 @@ app.get("/analytics/streaks/", authenticateToken, async (req, res) => {
     const logs = await db.all(
       `SELECT date, status FROM log 
        WHERE habit_id = ? AND user_id = ? 
-       ORDER BY date DESC`,
+       ORDER BY date ASC`,
       [habit.habit_id, userId]
     );
 
-    let currentStreak = 0;
     let longestStreak = 0;
     let streak = 0;
 
     for (const log of logs) {
       if (log.status === "done") {
         streak++;
-        currentStreak = Math.max(currentStreak, streak);
+        longestStreak = Math.max(currentStreak, streak);
       } else {
-        longestStreak = Math.max(longestStreak, streak);
         streak = 0;
       }
     }
@@ -242,7 +240,7 @@ app.get("/analytics/streaks/", authenticateToken, async (req, res) => {
 
     results.push({
       habitName: habit.habit_name,
-      currentStreak,
+      streak,
       longestStreak
     });
   }
